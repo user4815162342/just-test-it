@@ -1,0 +1,18 @@
+{
+  "name": "just-test-it",
+  "version": "0.0.0",
+  "description": "Why does testing have to be so hard? Just Test It!",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "keywords": [
+    "test",
+    "testing"
+  ],
+  "dependencies": {
+		"stack-trace": "~0.0"
+  },
+  "author": "Neil M. Sheldon",
+  "license": "MIT"
+}
