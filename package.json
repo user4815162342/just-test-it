@@ -13,9 +13,20 @@
   "dependencies": {
 		"stack-trace": "~0.0"
   },
+  "homepage": "https://github.com/user4815162342/just-test-it",
+  "bugs": {
+		"url": "https://github.com/user4815162342/just-test-it/issues"
+	},
+  "repository": { 
+		"type" : "git", 
+		"url" : "http://github.com/user4815162342/just-test-it.git"
+  },
   "bin": {
 		"just-test-it": "index.js"
 	},
+  "engines" : { 
+		"node" : ">=0.10" 
+	}, 		
   "author": "Neil M. Sheldon",
   "license": "MIT"
 }
