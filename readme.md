@@ -131,10 +131,15 @@ you need to use some configuration.
     }
     ...
     scripts: {
-        "test": "node just-test-it"
+        "test": "just-test-it"
     }
     ...
 ```
+
+Since just-test-it is registered as an executable, if you install it
+locally, npm test should be able to pick it up in the local path, so
+you can just put the bare package name there. There is no need to 
+install globally, but you can if you want.
 
 5. Run it.
 

@@ -13,6 +13,9 @@
   "dependencies": {
 		"stack-trace": "~0.0"
   },
+  "bin": {
+		"just-test-it": "index.js"
+	},
   "author": "Neil M. Sheldon",
   "license": "MIT"
 }
