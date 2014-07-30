@@ -230,7 +230,8 @@ But, that doesn't mean it will stop processing. The default timeout for
 this is about 5 seconds, but you can set it to no timeout at all
 by specifying 0.
 
-These calls can be nested, and the blocking will not be complete until
+These calls can be nested, (or interleaved if you want to run two
+parallel functions in one test) and the blocking will not be complete until
 all 'asyncBegins' are matched up with a 'asyncEnd'.
 
 * `test.asyncEnd()`: Include this when all of your asynchronous testing

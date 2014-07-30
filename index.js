@@ -213,6 +213,16 @@ var main = function(args) {
     
     var exitCode = 0;
     
+    // names taken from node source code.
+    var builtInModules = ["node.js",
+        "assert.js","buffer.js","child_process.js","cluster.js","console.js",
+        "constants.js","crypto.js","dgram.js","dns.js","domain.js","events.js",
+        "freelist.js","fs.js","http.js","https.js","module.js","net.js","os.js",
+        "path.js","punycode.js","querystring.js","readline.js","repl.js","smalloc.js",
+        "stream.js","string_decoder.js","sys.js","timers.js","tls.js","tracing.js",
+        "tty.js","url.js","util.js","vm.js","zlib.js"]
+        
+    
     var reportError = function(err) {
         
         if (err) {
@@ -220,6 +230,20 @@ var main = function(args) {
                 console.error("%s failed: %s",err.test,err.message)
             } else if (err.file) {
                 console.error("%s failed: %s",err.file,err.message);
+                if (err instanceof SyntaxError) {
+                    // The stack of a SyntaxError might not be correct
+                    // with a require.
+                    // It seems to start out with node's module.js file
+                    // instead of the file it occurred in (unless it's
+                    // an eval), and doesn't provide a line number
+                    // value on the object.
+                    // What's worse is that the 'require' itself writes
+                    // the Syntax Error message straight to console.error,
+                    // skipping all of this, and it *does* have a line
+                    // number, unfortunately it doesn't match geany's
+                    // error regex.
+                    console.error("%s:1:1",err.file)
+                }
             } else if (err.message) {
                 console.error("Error occurred: %s",err.message);
             } else {
@@ -235,7 +259,13 @@ var main = function(args) {
                     // The skip allows us to throw errors that point
                     // to the test itself.
                     for (var i = err.skip || 0; i < stack.length; i++) {
-                        console.error("%s:%d:%d",stack[i].getFileName(),stack[i].getLineNumber(),stack[i].getColumnNumber());
+                        // Occasionally, I seem to get some errors with no parseable filename.
+                        // If so, it's useless anyway.
+                        // Also, I can skip the built-in modules.
+                        if ((stack[i].getFileName() !== null) &&
+                            (builtInModules.indexOf(stack[i].getFileName()) === -1)) {
+                            console.error("%s:%d:%d",stack[i].getFileName(),stack[i].getLineNumber(),stack[i].getColumnNumber());
+                        }
                         // don't go any further if we're at the test file for this error,
                         // because this is where it probably happened.
                         if (err.file && (stack[i].getFileName() === err.file)) {

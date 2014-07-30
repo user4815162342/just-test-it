@@ -72,8 +72,17 @@ test failed: This error should be reported, but won't stop the testing. Note tha
 /home/neil/projects/just-test-it/test/more/testMoreThings.js:1:1: This error should be reported, but won't stop the testing. Note that it's also a string, so it won't get a stack trace.\n\
     (To get more information, such as an accurate line number, make sure all thrown objects are Errors)\n\
 testTooManyStops failed: An extra call to asyncEnd was made\n\
-/home/neil/projects/just-test-it/test/more/testMoreThings.js:10:7\n","Unexpected output from test:\n" + data);
+/home/neil/projects/just-test-it/test/more/testMoreThings.js:10:7\n\n\
+/home/neil/projects/just-test-it/test/more/testSyntaxError.js:3\n\
+This is a syntax error\n\
+     ^^\n\
+/home/neil/projects/just-test-it/test/more/testSyntaxError.js failed: Unexpected identifier\n\
+/home/neil/projects/just-test-it/test/more/testSyntaxError.js:1:1\n\
+/home/neil/projects/just-test-it/index.js:139:24\n","Unexpected output from test:\n" + data);
     });
+    
+    
+    
 
     
 }
