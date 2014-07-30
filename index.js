@@ -239,9 +239,23 @@ var main = function(args) {
                     // value on the object.
                     // What's worse is that the 'require' itself writes
                     // the Syntax Error message straight to console.error,
-                    // skipping all of this, and it *does* have a line
-                    // number, unfortunately it doesn't match geany's
-                    // error regex.
+                    // skipping all of this, and it *does* have a file and
+                    // line number, unfortunately it doesn't match geany's
+                    // error regex, so it doesn't make it easy to find.
+                    // FUTURE: Options:
+                    // 1. Parse this with acorn, or something. Except 
+                    // that the syntax error might actually be in a 
+                    // file that was required by this file. I suppose 
+                    // acorn would be able to help me with that, too, since I could
+                    // look for 'require' function calls. 
+                    // 2. Override stderr.write, and compare it to
+                    // the things I've written. Hide stuff if I didn't
+                    // write them, but keep them in memory. When I 
+                    // see a SyntaxError, go back through the lines
+                    // to find the message, and parse out the file name
+                    // and line number, then output the message more
+                    // appropriately.
+                    // 3. Just let the user worry about it.
                     console.error("%s:1:1",err.file)
                 }
             } else if (err.message) {
