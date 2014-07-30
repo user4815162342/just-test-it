@@ -1,6 +1,6 @@
 {
   "name": "just-test-it",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Why does testing have to be so hard? Just Test It!",
   "main": "index.js",
   "scripts": {
@@ -11,22 +11,22 @@
     "testing"
   ],
   "dependencies": {
-		"stack-trace": "~0.0"
+    "stack-trace": "~0.0"
   },
   "homepage": "https://github.com/user4815162342/just-test-it",
   "bugs": {
-		"url": "https://github.com/user4815162342/just-test-it/issues"
-	},
-  "repository": { 
-		"type" : "git", 
-		"url" : "http://github.com/user4815162342/just-test-it.git"
+    "url": "https://github.com/user4815162342/just-test-it/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/user4815162342/just-test-it.git"
   },
   "bin": {
-		"just-test-it": "index.js"
-	},
-  "engines" : { 
-		"node" : ">=0.10" 
-	}, 		
+    "just-test-it": "index.js"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
   "author": "Neil M. Sheldon",
   "license": "MIT"
 }
