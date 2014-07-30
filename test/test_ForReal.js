@@ -4,10 +4,6 @@
 var cp = require('child_process');
 var assert = require('assert');
 
-// TODO: Need to compare the stdout results with expected values,
-// and not report the values.
-// But first, I need to create appropriate error results.
-
 var run = function(args,cb) {
     return cp.spawn("node",["index"].concat(args),{ stdio: "pipe"}).on('close',function(code,signal) {
         if (code !== 0) {
