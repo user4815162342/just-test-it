@@ -227,9 +227,9 @@ var main = function(args) {
         
         if (err) {
             if (err.test) {
-                console.error("%s failed: %s",err.test,err.message)
+                console.error("%s failed:",err.test)
             } else if (err.file) {
-                console.error("%s failed: %s",err.file,err.message);
+                console.error("%s failed:",err.file);
                 if (err instanceof SyntaxError) {
                     // The stack of a SyntaxError might not be correct
                     // with a require.
@@ -258,13 +258,9 @@ var main = function(args) {
                     // 3. Just let the user worry about it.
                     console.error("%s:1:1",err.file)
                 }
-            } else if (err.message) {
-                console.error("Error occurred: %s",err.message);
-            } else {
-                // this is probably just a string message I wanted to send
-                // to console.error.
-                console.error(err);
-            }
+            } 
+            // just output the error itself to get all of the data.
+            console.error(err);
             
             if (err.stack) {
                 
