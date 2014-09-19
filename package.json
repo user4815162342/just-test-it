@@ -1,6 +1,6 @@
 {
   "name": "just-test-it",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Why does testing have to be so hard? Just Test It!",
   "main": "index.js",
   "scripts": {
