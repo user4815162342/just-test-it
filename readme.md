@@ -243,8 +243,20 @@ then return a function which can be used as a callback for the async
 function. That function will pass all of its arguments into your callback,
 and then call 'asyncEnd' when it returns.
 
+* `test.promise(timeout?,promise)`: If you are using promises for your
+async calls, the split between success and failure, and the try...catch
+blocks usually in the implementation means `async` isn't going to cut it 
+for you. Instead, pass the promise (in this case, any object with a 'then' 
+method) to this method, and it will end the async test on success, and 
+report the error on failure.
+
 * `test.intercept(error?)`: If a value is passed to this function, it will
 immediately throw it. If not, it will simply return. This is just a useful
 little sugar for handling those callback errors, without having to write
 a conditional. The fact that it throws the error allows you to get a
 stack trace, for reporting where you found the error. 
+
+* `test.fail(error)`: There are times when you need to fail a test, and
+throwing an error is not going to do it. For example, if your callback which
+tests for errors is wrapped inside a try..catch block by a third-party
+library. Call this function to stop the testing.

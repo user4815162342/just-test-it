@@ -11,7 +11,7 @@ var Test = function(file,name,func) {
     var blockTimeout = null;
     var done;
     
-    var error = function(err) {
+    var error = this.fail = function(err) {
         // we can't tag strings with the file and name, making
         // it more difficult to report. But, I don't want to
         // turn it into an Error, because the stack will be wrong.
@@ -64,7 +64,7 @@ var Test = function(file,name,func) {
         
     }
     
-    this.asyncEnd = function() {
+    this.asyncEnd = function(err) {
         if (blocked === 0) {
             var err = new Error(util.format("An extra call to asyncEnd was made"));
             err.skip = 1;
@@ -74,7 +74,7 @@ var Test = function(file,name,func) {
         if (blocked === 0) {
             clearTimeout(blockTimeout);
             blockTimeout = null;
-            done();
+            done(err);
         }
     }
 }
@@ -108,6 +108,22 @@ Test.prototype.async = function(timeout,wrapped) {
         // do anything).
         this.asyncEnd();
     }.bind(this);
+}
+
+Test.prototype.promise = function(timeout,promise) {
+    if (typeof timeout === "object") {
+        promise = timeout;
+        timeout = void 0;
+    }
+    // start the async now, so we know we're supposed
+    // to wait for this function to be called.
+    this.asyncBegin(timeout,2);
+    
+    promise.then(function() {
+        this.asyncEnd();
+    }.bind(this),function(err) {
+        this.fail(err);
+    }.bind(this));
 }
 
 var runTests = function(tests,report,done) {

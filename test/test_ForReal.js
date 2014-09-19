@@ -55,6 +55,13 @@ module.exports.testSomeTimeout = function(t) {
     
 }
 
+module.exports.testPromise = function(t) {
+    t.promise({
+        then: function(good,bad) {
+            setTimeout(good,2);
+        }
+    })
+}
 
 module.exports.testMore = function(t) {
     readErrors(run(["--test-dir","test/more"],t.async(function(err) {
@@ -62,7 +69,7 @@ module.exports.testMore = function(t) {
     })),function(err,data) {
         assert(!err,"Could not read from standard out");
         // apparently, '.' doesn't match new lines, I hadn't realized this before. '[^]' matches everything.
-        assert(/[^]*\/test\/more\/testBadFile\.js failed[^]*This test file shouldn't even run[^]*\/test\/more\/testBadFile\.js:2:7[^]*test failed[^]*This error should be reported, but won't stop the testing\. Note that it's also a string, so it won't get a stack trace[^]*testTooManyStops failed[^]*An extra call to asyncEnd was made[^]*\/test\/more\/testSyntaxError\.js:3[^]*This is a syntax error[^]*/.test(data),"Unexpected output from test:\n" + data);
+        assert(/[^]*\/test\/more\/testBadFile\.js failed[^]*This test file shouldn't even run[^]*\/test\/more\/testBadFile\.js:2:7[^]*testPromise failed[^]*Promise could not be fulfilled[^]*test failed[^]*This error should be reported, but won't stop the testing\. Note that it's also a string, so it won't get a stack trace[^]*testTooManyStops failed[^]*An extra call to asyncEnd was made[^]*\/test\/more\/testSyntaxError\.js:3[^]*This is a syntax error[^]*/.test(data),"Unexpected output from test:\n" + data);
     });
     
     
